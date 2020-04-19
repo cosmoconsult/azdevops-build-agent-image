@@ -1,0 +1,27 @@
+name: Build Images
+
+on:
+  push:
+    tags:
+    - 'v*' 
+
+jobs:
+
+  build:
+
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    
+    - uses: azure/docker-login@v1
+      with:
+        username: ${{ secrets.docker_user }}
+        password: ${{ secrets.docker_pwd }}
+
+    - name: Build Docker image
+      run: $version = ((Invoke-Expression "git describe --abbrev=0 --tags").Substring(1)); Invoke-Expression "docker build -t tobiasfenster/azdevops-build-agent:$($version)-1809 -f Dockerfile.core --build-arg BASE=1809 ."
+
+    - name: Push Docker image
+      run: $version = ((Invoke-Expression "git describe --abbrev=0 --tags").Substring(1)); Invoke-Expression "docker push tobiasfenster/azdevops-build-agent:$($version)-1809"; 
+  
