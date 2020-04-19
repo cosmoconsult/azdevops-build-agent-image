@@ -1,6 +1,6 @@
 # escape=`
 ARG BASE
-FROM mcr.microsoft.com/windows/servercore:ltsc$BASE
+FROM mcr.microsoft.com/windows/servercore:$BASE
 
 WORKDIR /azp
 COPY start.ps1 .
