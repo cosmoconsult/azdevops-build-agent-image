@@ -1,0 +1,25 @@
+name: Build Image on Push
+
+on:
+  push:
+
+jobs:
+
+  build:
+
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    
+    - uses: azure/docker-login@v1
+      with:
+        username: ${{ secrets.docker_user }}
+        password: ${{ secrets.docker_pwd }}
+
+    - name: Build Docker image
+      run: Invoke-Expression "docker build -t tobiasfenster/azdevops-build-agent:dev-1809 --build-arg BASE=1809 ."
+
+    - name: Push Docker image
+      run: Invoke-Expression "docker push tobiasfenster/azdevops-build-agent:dev-1809"; 
+  
