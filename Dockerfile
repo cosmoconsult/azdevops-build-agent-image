@@ -14,7 +14,7 @@ RUN powershell -Command "iex ((New-Object System.Net.WebClient).DownloadString('
 RUN powershell -Command "New-Item \"\\azp\\agent\" -ItemType directory | Out-Null;" `
     "Set-Location agent;" `
     "$base64AuthInfo = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(\":$AZP_TOKEN\"));" `
-    "$package = Invoke-RestMethod -Headers @{Authorization=(\"Basic $base64AuthInfo\")} \"$AZP_URL/_apis/distributedtask/packages/agent?platform=win-x64&``$top=1\";" `
+    "$package = Invoke-RestMethod -Headers @{Authorization=(\"Basic $base64AuthInfo\")} \"$AZP_URL/_apis/distributedtask/packages/agent?platform=win-x64&\`$top=1\";" `
     "$packageUrl = $package[0].Value.downloadUrl;" `
     "Write-Host $packageUrl;" `
     "$wc = New-Object System.Net.WebClient;" `
