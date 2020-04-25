@@ -18,12 +18,12 @@ RUN New-Item \"\azp\agent\" -ItemType directory | Out-Null; `
     $packageUrl = $package[0].Value.downloadUrl; `
     $wc = New-Object System.Net.WebClient; `
     $wc.DownloadFile($packageUrl, \"$(Get-Location)\agent.zip\"); `
-    Expand-Archive -Path \"agent.zip\" -DestinationPath \"\azp\agent\"
+    Expand-Archive -Path 'agent.zip' -DestinationPath '\azp\agent'
 
 
-RUN powershell -Command "iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'));" `
-    "choco install -y docker-cli;" `
-    "Install-PackageProvider -Name \"Nuget\" -Force;" `
-    "Install-Module AzureDevOpsAPIUtils -Force -ErrorAction SilentlyContinue"
+RUN iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1')); `
+    choco install -y docker-cli; `
+    Install-PackageProvider -Name 'Nuget' -Force; `
+    Install-Module AzureDevOpsAPIUtils -Force -ErrorAction SilentlyContinue
 
-CMD powershell .\start.ps1
+CMD .\start.ps1
