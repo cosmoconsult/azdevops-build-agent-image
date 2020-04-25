@@ -20,8 +20,8 @@ jobs:
     - name: Build Docker image
       run: Invoke-Expression "docker build -t tobiasfenster/azdevops-build-agent:dev-1809 --build-arg BASE=1809 --build-arg AZP_TOKEN=$AZP_TOKEN --build-arg AZP_URL=$AZP_URL ."
       env:
-        username: ${{ secrets.AZP_TOKEN }}
-        password: ${{ secrets.AZP_URL }}
+        AZP_TOKEN: ${{ secrets.AZP_TOKEN }}
+        AZP_URL: ${{ secrets.AZP_URL }}
 
     - name: Push Docker image
       run: Invoke-Expression "docker push tobiasfenster/azdevops-build-agent:dev-1809"; 
