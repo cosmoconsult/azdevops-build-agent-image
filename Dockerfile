@@ -8,6 +8,8 @@ ARG AZP_URL
 WORKDIR /azp
 COPY start.ps1 .
 
+RUN Write-Host \"$ENV:AZP_URL/_apis/distributedtask/packages/agent?platform=win-x64&`$top=1\"
+
 RUN New-Item \"\azp\agent\" -ItemType directory | Out-Null; `
     Set-Location agent; `
     $base64AuthInfo = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(\":$env:AZP_TOKEN\")); `
