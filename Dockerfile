@@ -11,14 +11,14 @@ RUN powershell -Command "iex ((New-Object System.Net.WebClient).DownloadString('
     "Install-PackageProvider -Name \"Nuget\" -Force;" `
     "Install-Module AzureDevOpsAPIUtils -Force -ErrorAction SilentlyContinue"
 
-RUN powershell -Command "New-Item `"\azp\agent`" -ItemType directory | Out-Null;" `
+RUN powershell -Command "New-Item \"\\azp\\agent\" -ItemType directory | Out-Null;" `
     "Set-Location agent;" `
-    "$base64AuthInfo = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(`":$AZP_TOKEN`"));" `
-    "$package = Invoke-RestMethod -Headers @{Authorization=(`"Basic $base64AuthInfo`")} `"$AZP_URL/_apis/distributedtask/packages/agent?platform=win-x64&``$top=1`";" `
+    "$base64AuthInfo = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(\":$AZP_TOKEN\"));" `
+    "$package = Invoke-RestMethod -Headers @{Authorization=(\"Basic $base64AuthInfo\")} \"$AZP_URL/_apis/distributedtask/packages/agent?platform=win-x64&``$top=1\";" `
     "$packageUrl = $package[0].Value.downloadUrl;" `
     "Write-Host $packageUrl;" `
     "$wc = New-Object System.Net.WebClient;" `
-    "$wc.DownloadFile($packageUrl, `"$(Get-Location)\agent.zip`");" `
-    "Expand-Archive -Path `"agent.zip`" -DestinationPath `"\azp\agent`""
+    "$wc.DownloadFile($packageUrl, \"$(Get-Location)\\agent.zip\");" `
+    "Expand-Archive -Path \"agent.zip\" -DestinationPath \"\\azp\\agent\""
 
 CMD powershell .\start.ps1
