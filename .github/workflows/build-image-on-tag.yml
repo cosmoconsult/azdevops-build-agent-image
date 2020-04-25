@@ -20,7 +20,7 @@ jobs:
         password: ${{ secrets.docker_pwd }}
 
     - name: Build Docker image
-      run: $version = ((Invoke-Expression "git describe --abbrev=0 --tags").Substring(1)); Invoke-Expression "docker build -t tobiasfenster/azdevops-build-agent:$($version)-1809 --build-arg AZP_TOKEN=$env:AZP_TOKEN --build-arg AZP_URL=$env:AZP_URL ."
+      run: $version = ((Invoke-Expression "git describe --abbrev=0 --tags").Substring(1)); Invoke-Expression "docker build -t tobiasfenster/azdevops-build-agent:$($version)-1809 --build-arg BASE=1809 --build-arg AZP_TOKEN=$env:AZP_TOKEN --build-arg AZP_URL=$env:AZP_URL ."
       env:
         AZP_TOKEN: ${{ secrets.AZP_TOKEN }}
         AZP_URL: ${{ secrets.AZP_URL }}
