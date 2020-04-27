@@ -41,7 +41,7 @@ try
 
   Write-Host "Running Azure Pipelines agent..." -ForegroundColor Cyan
 
-  .\run.cmd --once
+  .\run.cmd
 }
 finally
 {
