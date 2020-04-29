@@ -20,7 +20,8 @@ RUN New-Item \"\azp\agent\" -ItemType directory | Out-Null; `
     Expand-Archive -Path 'agent.zip' -DestinationPath '\azp\agent'
 
 
-RUN iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1')); `
+RUN Set-ExecutionPolicy Bypass -Scope Process -Force; `
+    iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1')); `
     choco install -y docker-cli; `
     Install-PackageProvider -Name 'Nuget' -Force; `
     Install-Module AzureDevOpsAPIUtils -Force -ErrorAction SilentlyContinue
