@@ -26,5 +26,4 @@ RUN iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.or
     Install-Module AzureDevOpsAPIUtils -Force -ErrorAction SilentlyContinue
 
 COPY start.ps1 .
-USER ContainerUser
 CMD .\start.ps1
