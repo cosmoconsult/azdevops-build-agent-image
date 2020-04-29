@@ -1,6 +1,6 @@
 # escape=`
 ARG BASE
-FROM mcr.microsoft.com/windows/servercore:$BASE
+FROM mcr.microsoft.com/windows:$BASE
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop';"]
 ARG AZP_TOKEN
 ARG AZP_URL
