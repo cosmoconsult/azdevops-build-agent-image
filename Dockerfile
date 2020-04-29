@@ -6,8 +6,6 @@ ARG AZP_TOKEN
 ARG AZP_URL
 
 WORKDIR /azp
-COPY start.ps1 .
-
 RUN Write-Host \"$ENV:AZP_URL/_apis/distributedtask/packages/agent?platform=win-x64&`$top=1\"
 
 RUN New-Item \"\azp\agent\" -ItemType directory | Out-Null; `
@@ -27,5 +25,6 @@ RUN iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.or
     Install-PackageProvider -Name 'Nuget' -Force; `
     Install-Module AzureDevOpsAPIUtils -Force -ErrorAction SilentlyContinue
 
+COPY start.ps1 .
 USER ContainerUser
 CMD .\start.ps1

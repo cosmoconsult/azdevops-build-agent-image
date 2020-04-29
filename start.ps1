@@ -22,6 +22,12 @@ if ($Env:AZP_WORK -and -not (Test-Path Env:AZP_WORK)) {
 # Let the agent ignore the token env variables
 $Env:VSO_AGENT_IGNORE = "AZP_TOKEN,AZP_TOKEN_FILE"
 
+if ([intptr]::Size -eq 4) {
+  Write-Host "running in x86"
+} else {
+  Write-Host "running in x64"
+}
+
 Set-Location agent
 try
 {
