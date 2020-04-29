@@ -16,6 +16,7 @@ RUN New-Item \"\azp\agent\" -ItemType directory | Out-Null; `
     $url = \"$ENV:AZP_URL/_apis/distributedtask/packages/agent?platform=win-x64&`$top=1\"; `
     $package = Invoke-RestMethod -Headers @{Authorization=(\"Basic $base64AuthInfo\")} $url; `
     $packageUrl = $package[0].Value.downloadUrl; `
+    Write-Host \"Downloading $packageUrl\" `
     $wc = New-Object System.Net.WebClient; `
     $wc.DownloadFile($packageUrl, \"$(Get-Location)\agent.zip\"); `
     Expand-Archive -Path 'agent.zip' -DestinationPath '\azp\agent'
