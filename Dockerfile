@@ -27,4 +27,5 @@ RUN iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.or
     Install-PackageProvider -Name 'Nuget' -Force; `
     Install-Module AzureDevOpsAPIUtils -Force -ErrorAction SilentlyContinue
 
+USER ContainerAdministrator
 CMD .\start.ps1
