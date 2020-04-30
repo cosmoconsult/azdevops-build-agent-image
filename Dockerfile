@@ -1,12 +1,11 @@
 # escape=`
 ARG BASE
-FROM mcr.microsoft.com/windows:$BASE
+FROM mcr.microsoft.com/windows/servercore:$BASE
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop';"]
 ARG AZP_TOKEN
 ARG AZP_URL
 
 WORKDIR /azp
-RUN Write-Host \"$ENV:AZP_URL/_apis/distributedtask/packages/agent?platform=win-x64&`$top=1\"
 
 RUN New-Item \"\azp\agent\" -ItemType directory | Out-Null; `
     Set-Location agent; `
@@ -20,11 +19,11 @@ RUN New-Item \"\azp\agent\" -ItemType directory | Out-Null; `
     Expand-Archive -Path 'agent.zip' -DestinationPath '\azp\agent'
 
 
-RUN Set-ExecutionPolicy Bypass -Scope Process -Force; `
-    iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1')); `
+RUN iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1')); `
     choco install -y docker-cli; `
     Install-PackageProvider -Name 'Nuget' -Force; `
     Install-Module AzureDevOpsAPIUtils -Force -ErrorAction SilentlyContinue
 
 COPY start.ps1 .
+USER ContainerUser
 CMD .\start.ps1
