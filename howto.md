@@ -1,0 +1,2 @@
+docker build -t tobiasfenster/azdevops-build-agent:dev-1809 --build-arg BASE=1809 --build-arg AZP_URL=https://dev.azure.com/cc-east-assets --build-arg AZP_TOKEN=... .
+docker push tobiasfenster/azdevops-build-agent:dev-1809
