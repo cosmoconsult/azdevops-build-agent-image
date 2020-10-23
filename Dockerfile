@@ -23,7 +23,7 @@ RUN iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.or
     choco install -y docker-cli; `
     [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; `
     Install-PackageProvider -Name 'Nuget' -Force; `
-    Install-PackageProvider -Name 'bccontainerhelper' -Force; `
+    Install-Module 'bccontainerhelper' -Force; `
     Install-Module AzureDevOpsAPIUtils -Force -ErrorAction SilentlyContinue
 
 COPY start.ps1 .
