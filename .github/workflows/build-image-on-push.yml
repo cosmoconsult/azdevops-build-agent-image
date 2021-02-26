@@ -17,12 +17,16 @@ jobs:
         username: ${{ secrets.docker_user }}
         password: ${{ secrets.docker_pwd }}
 
-    - name: Build Docker image
-      run: Invoke-Expression "docker build -t tobiasfenster/azdevops-build-agent:dev-1809 --build-arg BASE=ltsc2019 --build-arg AZP_TOKEN=$env:AZP_TOKEN --build-arg AZP_URL=$env:AZP_URL ."
+    - name: Build Docker images
+      run: |
+        docker build -t cosmoconsult/azdevops-build-agent:dev-bcagent-1809 --build-arg BASE=ltsc2019 --build-arg AZP_TOKEN=$env:AZP_TOKEN --build-arg AZP_URL=$env:AZP_URL -f Dockerfile.bcagent .
+        docker build -t cosmoconsult/azdevops-build-agent:dev-coreagent-1809 --build-arg BASE=ltsc2019 --build-arg AZP_TOKEN=$env:AZP_TOKEN --build-arg AZP_URL=$env:AZP_URL -f Dockerfile.coreagent .
       env:
         AZP_TOKEN: ${{ secrets.AZP_TOKEN }}
         AZP_URL: ${{ secrets.AZP_URL }}
 
     - name: Push Docker image
-      run: Invoke-Expression "docker push tobiasfenster/azdevops-build-agent:dev-1809"; 
+      run: | 
+        docker push cosmoconsult/azdevops-build-agent:dev-bcagent-1809
+        docker push cosmoconsult/azdevops-build-agent:dev-coreagent-1809 
   
