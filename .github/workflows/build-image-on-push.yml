@@ -62,7 +62,7 @@ jobs:
 
         echo $(jq -c '. + { "experimental": \"enabled\" }' "$env:DOCKER_CONFIG\config.json") | Out-File -Encoding ASCII "$env:DOCKER_CONFIG\config.json"
 
-  - name: Build Docker images
+    - name: Build Docker images
       run: |
         $buildCmds = $env:buildCmdsString.Split("###", [StringSplitOptions]::RemoveEmptyEntries)
 
