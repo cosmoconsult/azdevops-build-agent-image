@@ -42,7 +42,7 @@ jobs:
           
           for ($j=0; $j -lt $targets.length; $j++){
             $currImage = "$($currBaseImage)-$($targets[$j])"
-            $buildCmd = "docker build -t $($currImage) -f $($dockerfiles[$i]) --build-arg BASE=$($targets[$j]) --isolation hyperv ."
+            $buildCmd = "docker build -t $($currImage) -f $($dockerfiles[$i]) --build-arg BASE=$($targets[$j]) --build-arg AZP_TOKEN=$env:AZP_TOKEN --build-arg AZP_URL=$env:AZP_URL --isolation hyperv ."
             $buildCmds.Add($buildCmd)
 
             $imgPushCmd = "docker push $($currImage)"
@@ -61,6 +61,9 @@ jobs:
         echo "manifestPushCmdsString=$($manifestPushCmds -join "###")" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
 
         echo $(jq -c '. + { "experimental": \"enabled\" }' "$env:DOCKER_CONFIG\config.json") | Out-File -Encoding ASCII "$env:DOCKER_CONFIG\config.json"
+    env:
+      AZP_TOKEN: ${{ secrets.AZP_TOKEN }}
+      AZP_URL: ${{ secrets.AZP_URL }}
 
     - name: Build Docker images
       run: |
