@@ -36,7 +36,7 @@ jobs:
         $manifestPushCmds = New-Object System.Collections.Generic.List[System.String]
 
         for ($i=0; $i -lt $images.length; $i++){
-          $currBaseImage = "tobiasfenster/$($images[$i])"
+          $currBaseImage = "cosmoconsult/$($images[$i])"
           $manifestCmd = "docker manifest create $($currBaseImage)"
           $manifestPushCmd = "docker manifest push $($currBaseImage)"
           
