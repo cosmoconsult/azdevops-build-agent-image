@@ -22,7 +22,7 @@ jobs:
     - name: Set up commands
       run: |
         $version = ((Invoke-Expression "git describe --abbrev=0 --tags").Substring(1))
-        $images = @("azdevops-build-agent:$($version)-bcagent", "docker-automation-agent:$($version)-coreagent")
+        $images = @("azdevops-build-agent:$($version)-bcagent", "azdevops-build-agent:$($version)-coreagent")
         $targets = @("ltsc2019", "2004")
         $dockerfiles = @("Dockerfile.bcagent", "Dockerfile.coreagent")
 
