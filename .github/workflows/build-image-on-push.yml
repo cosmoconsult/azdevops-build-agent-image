@@ -61,9 +61,9 @@ jobs:
         echo "manifestPushCmdsString=$($manifestPushCmds -join "###")" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
 
         echo $(jq -c '. + { "experimental": \"enabled\" }' "$env:DOCKER_CONFIG\config.json") | Out-File -Encoding ASCII "$env:DOCKER_CONFIG\config.json"
-    env:
-      AZP_TOKEN: ${{ secrets.AZP_TOKEN }}
-      AZP_URL: ${{ secrets.AZP_URL }}
+      env:
+        AZP_TOKEN: ${{ secrets.AZP_TOKEN }}
+        AZP_URL: ${{ secrets.AZP_URL }}
 
     - name: Build Docker images
       run: |
