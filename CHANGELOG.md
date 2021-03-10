@@ -1,3 +1,7 @@
+# v0.9.6.1
+
+- Fix missing env variables
+
 # v0.9.6
 
 - Add multi-arch builds
