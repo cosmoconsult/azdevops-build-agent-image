@@ -20,7 +20,7 @@ RUN New-Item \"\azp\agent\" -ItemType directory | Out-Null; `
 
 
 RUN iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1')); `
-    choco install -y docker-cli dotnetcore-sdk jq;
+    choco install -y docker-cli dotnetcore-sdk jq azure-cli;
 
 COPY start.ps1 .
 CMD .\start.ps1
