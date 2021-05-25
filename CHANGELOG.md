@@ -2,6 +2,7 @@
 
 - Add .NET 5.0 and 6.0 (preview) SDKs to dotnet image
 - Add Azure CLI to dotnet image
+- Bump bccontainerhelper to 2.0.12 in BC image
 
 # v0.9.6.1
 
