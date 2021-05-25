@@ -1,6 +1,7 @@
 # v0.9.7
 
-- Add .NET 5.0 and 6.0 (preview) SDKs
+- Add .NET 5.0 and 6.0 (preview) SDKs to dotnet image
+- Add Azure CLI to dotnet image
 
 # v0.9.6.1
 
