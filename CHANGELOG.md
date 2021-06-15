@@ -1,3 +1,7 @@
+# v0.9.8
+
+- Bump bccontainerhelper to 2.0.13 in BC image
+
 # v0.9.7
 
 - Add .NET 5.0 and 6.0 (preview) SDKs to dotnet image
