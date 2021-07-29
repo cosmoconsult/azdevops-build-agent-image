@@ -47,6 +47,25 @@ try
 
   Write-Host "Running Azure Pipelines agent..." -ForegroundColor Cyan
 
+  # optionally copy in NST files for BC release pipelines with ALOps
+  if (Test-Path Env:BC_RELEASE_PIPELINE) {
+    Write-Host "Trying to find NST files"
+    $types = Get-Item C:\bcartifacts.cache\* | Where-Object { $_.Name -eq "onprem" -or $_.Name -eq "sandbox" } | Sort-Object Name
+    if ($types.Count -lt 1) {
+      Write-Host "Couldn't identify BC artifact type"
+    } else {
+      $versions = Get-Item "C:\bcartifacts.cache\$($types[0].Name)\*" | Sort-Object Name -Descending
+      if ($versions.Count -lt 1) {
+        Write-Host "Couldn't identify BC artifact version"
+      } else {
+        $versionWithZero = "$($versions[0].Name.Substring(0, $versions[0].Name.IndexOf(".")))0"
+        New-Item -Path $env:ProgramFiles -Name "Microsoft Dynamics NAV" -Type Directory
+        New-Item -Path (Join-Path $env:ProgramFiles "Microsoft Dynamics NAV") -Name $versionWithZero -Type Directory
+        Copy-Item -Path "C:\bcartifacts.cache\$($types[0].Name)\$($versions[0].Name)\platform\ServiceTier\program files\Microsoft Dynamics NAV\*\Service" -Destination (Join-Path $env:ProgramFiles "Microsoft Dynamics NAV\$versionWithZero") -Recurse
+      }
+    }
+  }
+
   .\run.cmd
 }
 finally

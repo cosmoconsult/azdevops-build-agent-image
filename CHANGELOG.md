@@ -1,3 +1,8 @@
+# v0.9.9
+
+- Add an option to copy NST dlls (https://dev.azure.com/cc-ppi/General/_workitems/edit/1201)
+- Bump bccontainerhelper to 2.0.14 in BC image
+
 # v0.9.8
 
 - Bump bccontainerhelper to 2.0.13 in BC image
