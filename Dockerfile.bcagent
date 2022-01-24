@@ -2,7 +2,7 @@
 ARG BASE
 FROM mcr.microsoft.com/dotnet/framework/runtime:4.8-windowsservercore-$BASE
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop';"]
-ENV BCCHVERSION 2.0.14
+ENV BCCHVERSION 3.0.1
 ARG AZP_TOKEN
 ARG AZP_URL
 
