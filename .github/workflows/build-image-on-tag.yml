@@ -22,9 +22,9 @@ jobs:
     - name: Set up commands
       run: |
         $version = ((Invoke-Expression "git describe --abbrev=0 --tags").Substring(1))
-        $images = @("azdevops-build-agent:$($version)-bcagent", "azdevops-build-agent:$($version)-coreagent")
+        $images = @("azdevops-build-agent:$($version)-bcagent", "azdevops-build-agent:latest-bcagent", "azdevops-build-agent:$($version)-coreagent", "azdevops-build-agent:latest-coreagent")
         $targets = @("ltsc2019", "2004")
-        $dockerfiles = @("Dockerfile.bcagent", "Dockerfile.coreagent")
+        $dockerfiles = @("Dockerfile.bcagent", "Dockerfile.bcagent", "Dockerfile.coreagent", "Dockerfile.coreagent")
 
         $buildCmds = New-Object System.Collections.Generic.List[System.String]
         $imgPushCmds = New-Object System.Collections.Generic.List[System.String]
