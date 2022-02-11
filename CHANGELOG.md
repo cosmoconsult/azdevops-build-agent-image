@@ -1,3 +1,7 @@
+# v1.0.0
+
+- Add AppInsights
+
 # v0.9.9
 
 - Add an option to copy NST dlls (https://dev.azure.com/cc-ppi/General/_workitems/edit/1201)
