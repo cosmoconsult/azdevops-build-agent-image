@@ -1,3 +1,7 @@
+# v1.0.1
+
+- Add Node.js (LTS), windows-build-tools and npm packages (webpack, vsce) to dotnet image (https://dev.azure.com/cc-ppi/Self-Service/_workitems/edit/1950)
+
 # v1.0.0
 
 - Add AppInsights
