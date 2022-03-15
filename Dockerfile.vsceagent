@@ -5,6 +5,8 @@ SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop';"]
 ARG AZP_TOKEN
 ARG AZP_URL
 
+COPY fonts/arial*.ttf c:/windows/fonts/
+
 WORKDIR /azp
 
 RUN New-Item \"\azp\agent\" -ItemType directory | Out-Null; `
