@@ -1,3 +1,7 @@
+# v1.0.3
+
+- Add default font to vsceagent image since the new windows server core images come without any
+
 # v1.0.2
 
 - Add Azure CLI to vsceagent image (https://dev.azure.com/cc-ppi/Self-Service/_workitems/edit/1950)
