@@ -31,16 +31,34 @@ if ([intptr]::Size -eq 4) {
 Set-Location agent
 try
 {
-  Write-Host "Configuring Azure Pipelines agent..." -ForegroundColor Cyan
 
-  .\config.cmd --unattended `
-    --agent "$(if (Test-Path Env:AZP_AGENT_NAME) { ${Env:AZP_AGENT_NAME} } else { ${Env:computername} })" `
-    --url "$(${Env:AZP_URL})" `
-    --auth PAT `
-    --token "$(Get-Content ${Env:AZP_TOKEN_FILE})" `
-    --pool "$(if (Test-Path Env:AZP_POOL) { ${Env:AZP_POOL} } else { 'Default' })" `
-    --work "$(if (Test-Path Env:AZP_WORK) { ${Env:AZP_WORK} } else { '_work' })" `
-    --replace
+  if (Test-Path Env:AZP_ENVIRONMENTNAME) {
+    Write-Host "Configuring Azure Environment agent..." -ForegroundColor Cyan
+
+    .\config.cmd --environment `
+      --environmentname "$(${$env:AZP_ENVIRONMENTNAME})" `
+      --unattended `
+      --replace `
+      --agent "$(if (Test-Path Env:AZP_AGENT_NAME) { ${Env:AZP_AGENT_NAME} } else { ${Env:computername} })" `
+      --work "$(if (Test-Path Env:AZP_WORK) { ${Env:AZP_WORK} } else { '_work' })" `
+      --url "$(${Env:AZP_URL})" `
+      --projectname  "$(${$env:AZP_PROJECTNAME})" `
+      --auth PAT `
+      --token $PAT `
+      --addvirtualmachineresourcetags `
+      --virtualmachineresourcetags "$(${$env:AZP_DEPLOYMENTTAGS})"
+  } else {
+    Write-Host "Configuring Azure Pipelines agent..." -ForegroundColor Cyan
+
+    .\config.cmd --unattended `
+      --agent "$(if (Test-Path Env:AZP_AGENT_NAME) { ${Env:AZP_AGENT_NAME} } else { ${Env:computername} })" `
+      --url "$(${Env:AZP_URL})" `
+      --auth PAT `
+      --token "$(Get-Content ${Env:AZP_TOKEN_FILE})" `
+      --pool "$(if (Test-Path Env:AZP_POOL) { ${Env:AZP_POOL} } else { 'Default' })" `
+      --work "$(if (Test-Path Env:AZP_WORK) { ${Env:AZP_WORK} } else { '_work' })" `
+      --replace
+  }
 
   # remove the administrative token before accepting work
   Remove-Item $Env:AZP_TOKEN_FILE
