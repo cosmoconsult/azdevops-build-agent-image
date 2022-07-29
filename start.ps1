@@ -44,7 +44,7 @@ try
       --url "$(${Env:AZP_URL})" `
       --projectname  "$(${$env:AZP_PROJECTNAME})" `
       --auth PAT `
-      --token $PAT `
+      --token "$(Get-Content ${Env:AZP_TOKEN_FILE})" `
       --addvirtualmachineresourcetags `
       --virtualmachineresourcetags "$(${$env:AZP_DEPLOYMENTTAGS})"
   } else {
