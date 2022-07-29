@@ -86,6 +86,14 @@ try
 
   .\run.cmd
 }
+catch 
+{
+   Write-Host $_
+   $LogFile = Get-Item -Path "C:\azp\agent\_diag\Agent_*.log" -ErrorAction SilentlyContinue
+   if ($null -ne $LogFile) {
+    Write-Host | Get-Content $LogFile
+   }
+}
 finally
 {
   Write-Host "Cleanup. Removing Azure Pipelines agent..." -ForegroundColor Cyan
