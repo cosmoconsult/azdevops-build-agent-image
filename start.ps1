@@ -36,17 +36,17 @@ try
     Write-Host "Configuring Azure Environment agent..." -ForegroundColor Cyan
 
     .\config.cmd --environment `
-      --environmentname "$(${$env:AZP_ENVIRONMENTNAME})" `
+      --environmentname "$(${Env:AZP_ENVIRONMENTNAME})" `
       --unattended `
       --replace `
       --agent "$(if (Test-Path Env:AZP_AGENT_NAME) { ${Env:AZP_AGENT_NAME} } else { ${Env:computername} })" `
       --work "$(if (Test-Path Env:AZP_WORK) { ${Env:AZP_WORK} } else { '_work' })" `
       --url "$(${Env:AZP_URL})" `
-      --projectname  "$(${$env:AZP_PROJECTNAME})" `
+      --projectname  "$(${Env:AZP_PROJECTNAME})" `
       --auth PAT `
       --token "$(Get-Content ${Env:AZP_TOKEN_FILE})" `
       --addvirtualmachineresourcetags `
-      --virtualmachineresourcetags "$(${$env:AZP_DEPLOYMENTTAGS})"
+      --virtualmachineresourcetags "$(${Env:AZP_DEPLOYMENTTAGS})"
   } else {
     Write-Host "Configuring Azure Pipelines agent..." -ForegroundColor Cyan
 
