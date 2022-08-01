@@ -31,32 +31,55 @@ if ([intptr]::Size -eq 4) {
 Set-Location agent
 try
 {
-
+  $agent = (if (Test-Path Env:AZP_AGENT_NAME) { ${Env:AZP_AGENT_NAME} } else { ${Env:computername} })
+  $work = $(if (Test-Path Env:AZP_WORK) { ${Env:AZP_WORK} } else { '_work' })
+  $url = "$(${Env:AZP_URL})"
+  $token = Get-Content ${Env:AZP_TOKEN_FILE}
   if (Test-Path Env:AZP_ENVIRONMENTNAME) {
     Write-Host "Configuring Azure Environment agent..." -ForegroundColor Cyan
 
+    $environmentname = ${Env:AZP_ENVIRONMENTNAME}
+    $projectname = ${Env:AZP_PROJECTNAME}
+    $virtualmachineresourcetags = ${Env:AZP_DEPLOYMENTTAGS}
+
+    Write-Host "Running command:"
+    Write-Host ".\config.cmd --environment `
+    --environmentname $environmentname `
+    --unattended `
+    --replace `
+    --agent $agent `
+    --work $work `
+    --url $url `
+    --projectname $projectname `
+    --auth PAT `
+    --token $token `
+    --addvirtualmachineresourcetags `
+    --virtualmachineresourcetags $virtualmachineresourcetags"
+
     .\config.cmd --environment `
-      --environmentname "$(${Env:AZP_ENVIRONMENTNAME})" `
+      --environmentname $environmentname `
       --unattended `
       --replace `
-      --agent "$(if (Test-Path Env:AZP_AGENT_NAME) { ${Env:AZP_AGENT_NAME} } else { ${Env:computername} })" `
-      --work "$(if (Test-Path Env:AZP_WORK) { ${Env:AZP_WORK} } else { '_work' })" `
-      --url "$(${Env:AZP_URL})" `
-      --projectname  "$(${Env:AZP_PROJECTNAME})" `
+      --agent $agent `
+      --work $work `
+      --url $url `
+      --projectname $projectname `
       --auth PAT `
-      --token "$(Get-Content ${Env:AZP_TOKEN_FILE})" `
+      --token $token `
       --addvirtualmachineresourcetags `
-      --virtualmachineresourcetags "$(${Env:AZP_DEPLOYMENTTAGS})"
+      --virtualmachineresourcetags $virtualmachineresourcetags
   } else {
     Write-Host "Configuring Azure Pipelines agent..." -ForegroundColor Cyan
 
+    $pool = (if (Test-Path Env:AZP_POOL) { ${Env:AZP_POOL} } else { 'Default' })
+
     .\config.cmd --unattended `
-      --agent "$(if (Test-Path Env:AZP_AGENT_NAME) { ${Env:AZP_AGENT_NAME} } else { ${Env:computername} })" `
-      --url "$(${Env:AZP_URL})" `
+      --agent $agent `
+      --url $url `
       --auth PAT `
-      --token "$(Get-Content ${Env:AZP_TOKEN_FILE})" `
-      --pool "$(if (Test-Path Env:AZP_POOL) { ${Env:AZP_POOL} } else { 'Default' })" `
-      --work "$(if (Test-Path Env:AZP_WORK) { ${Env:AZP_WORK} } else { '_work' })" `
+      --token $token `
+      --pool $pool `
+      --work $work `
       --replace
   }
 
