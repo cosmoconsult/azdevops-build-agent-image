@@ -44,42 +44,42 @@ try
 
     Write-Host "Running command:"
     Write-Host ".\config.cmd --environment `
-    --environmentname $environmentname `
+    --environmentname "$environmentname" `
     --unattended `
     --replace `
-    --agent $agent `
-    --work $work `
-    --url $url `
-    --projectname $projectname `
+    --agent "$agent" `
+    --work "$work" `
+    --url "$url" `
+    --projectname "$projectname" `
     --auth PAT `
-    --token $token `
+    --token "$token" `
     --addvirtualmachineresourcetags `
-    --virtualmachineresourcetags $virtualmachineresourcetags"
+    --virtualmachineresourcetags "$virtualmachineresourcetags""
 
     .\config.cmd --environment `
-      --environmentname $environmentname `
+      --environmentname "$environmentname" `
       --unattended `
       --replace `
-      --agent $agent `
-      --work $work `
-      --url $url `
-      --projectname $projectname `
+      --agent "$agent" `
+      --work "$work" `
+      --url "$url" `
+      --projectname "$projectname" `
       --auth PAT `
-      --token $token `
+      --token "$token" `
       --addvirtualmachineresourcetags `
-      --virtualmachineresourcetags $virtualmachineresourcetags
+      --virtualmachineresourcetags "$virtualmachineresourcetags"
   } else {
     Write-Host "Configuring Azure Pipelines agent..." -ForegroundColor Cyan
 
     $pool = (if (Test-Path Env:AZP_POOL) { ${Env:AZP_POOL} } else { 'Default' })
 
     .\config.cmd --unattended `
-      --agent $agent `
-      --url $url `
+      --agent "$agent" `
+      --url "$url" `
       --auth PAT `
-      --token $token `
-      --pool $pool `
-      --work $work `
+      --token "$token" `
+      --pool "$pool" `
+      --work "$work" `
       --replace
   }
 
