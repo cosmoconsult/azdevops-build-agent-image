@@ -35,6 +35,7 @@ try
   $work = $(if (Test-Path Env:AZP_WORK) { ${Env:AZP_WORK} } else { '_work' })
   $url = "$(${Env:AZP_URL})"
   $token = Get-Content ${Env:AZP_TOKEN_FILE}
+  
   if (Test-Path Env:AZP_ENVIRONMENTNAME) {
     Write-Host "Configuring Azure Environment agent..." -ForegroundColor Cyan
 
@@ -71,7 +72,7 @@ try
   } else {
     Write-Host "Configuring Azure Pipelines agent..." -ForegroundColor Cyan
 
-    $pool = (if (Test-Path Env:AZP_POOL) { ${Env:AZP_POOL} } else { 'Default' })
+    $pool = $(if (Test-Path Env:AZP_POOL) { ${Env:AZP_POOL} } else { 'Default' })
 
     .\config.cmd --unattended `
       --agent "$agent" `
