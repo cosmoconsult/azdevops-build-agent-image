@@ -31,7 +31,7 @@ if ([intptr]::Size -eq 4) {
 Set-Location agent
 try
 {
-  $agent = (if (Test-Path Env:AZP_AGENT_NAME) { ${Env:AZP_AGENT_NAME} } else { ${Env:computername} })
+  $agent = $(if (Test-Path Env:AZP_AGENT_NAME) { ${Env:AZP_AGENT_NAME} } else { ${Env:computername} })
   $work = $(if (Test-Path Env:AZP_WORK) { ${Env:AZP_WORK} } else { '_work' })
   $url = "$(${Env:AZP_URL})"
   $token = Get-Content ${Env:AZP_TOKEN_FILE}
