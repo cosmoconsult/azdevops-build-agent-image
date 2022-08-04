@@ -1,6 +1,6 @@
 # escape=`
 ARG BASE
-FROM mcr.microsoft.com/dotnet/framework/runtime:4.8-windowsservercore-$BASE
+FROM mcr.microsoft.com/dotnet/runtime:6.0-windowsservercore-$BASE
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop';"]
 ENV BCCHVERSION 3.0.1
 ARG AZP_TOKEN
