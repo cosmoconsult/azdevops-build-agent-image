@@ -29,4 +29,5 @@ RUN iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.or
     Install-Module Az.ApplicationInsights -Force -ErrorAction SilentlyContinue; 
 
 COPY start.ps1 .
-CMD .\start.ps1
+ENTRYPOINT [ "powershell", "-Command", "$ErrorActionPreference = 'Stop';" ]
+CMD [".\start.ps1"]
