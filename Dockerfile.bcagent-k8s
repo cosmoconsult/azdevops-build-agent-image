@@ -2,7 +2,6 @@
 ARG BASE
 FROM mcr.microsoft.com/dotnet/framework/runtime:4.8-windowsservercore-$BASE
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop';"]
-ENV BCCHVERSION 3.0.1
 ARG AZP_TOKEN
 ARG AZP_URL
 
@@ -24,7 +23,6 @@ RUN iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.or
     choco install -y 7zip.install; `
     [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; `
     Install-PackageProvider -Name 'Nuget' -Force; `
-    Install-Module 'bccontainerhelper' -MinimumVersion $env:BCCHVERSION -MaximumVersion $env:BCCHVERSION -Force; `
     Install-Module AzureDevOpsAPIUtils -Force -ErrorAction SilentlyContinue; `
     Install-Module Az.ApplicationInsights -Force -ErrorAction SilentlyContinue; 
 
