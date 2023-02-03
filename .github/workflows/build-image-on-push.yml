@@ -27,7 +27,7 @@ jobs:
     - name: Set up commands
       run: |
         $images = @("azdevops-build-agent:dev$($env:branch)-bcagent-k8s","azdevops-build-agent:dev$($env:branch)-bcagent", "azdevops-build-agent:dev$($env:branch)-coreagent", "azdevops-build-agent:dev$($env:branch)-vsceagent")
-        $targets = @("ltsc2019", "2004")
+        $targets = @("ltsc2019", "2004", "ltsc2022")
         $dockerfiles = @("Dockerfile.bcagent","Dockerfile.bcagent-k8s", "Dockerfile.coreagent", "Dockerfile.vsceagent")
 
         $buildCmds = New-Object System.Collections.Generic.List[System.String]

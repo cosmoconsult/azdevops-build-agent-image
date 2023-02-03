@@ -34,4 +34,4 @@ RUN Write-Host \"Installing npm packages\"; `
     npm install -g webpack vsce;
 
 COPY start.ps1 .
-CMD .\start.ps1
+CMD ["powershell", "-Command", "./start.ps1"]
