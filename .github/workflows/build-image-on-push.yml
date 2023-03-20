@@ -14,6 +14,7 @@ jobs:
     
     - uses: azure/docker-login@v1
       with:
+        login-server: ghcr.io
         username: ${{ secrets.docker_user }}
         password: ${{ secrets.docker_pwd }}
 
@@ -36,7 +37,7 @@ jobs:
         $manifestPushCmds = New-Object System.Collections.Generic.List[System.String]
 
         for ($i=0; $i -lt $images.length; $i++){
-          $currBaseImage = "cosmoconsult/$($images[$i])"
+          $currBaseImage = "ghcr.io/cosmoconsult/$($images[$i])"
           $manifestCmd = "docker manifest create $($currBaseImage)"
           $manifestPushCmd = "docker manifest push $($currBaseImage)"
           
