@@ -66,7 +66,7 @@ try
     }
   }
 
-  .\run.cmd
+  .\run.cmd --once
 }
 finally
 {
