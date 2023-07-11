@@ -34,7 +34,7 @@ try
   Write-Host "Configuring Azure Pipelines agent..." -ForegroundColor Cyan
 
   .\config.cmd --unattended `
-    --agent "$(if (Test-Path Env:AZP_AGENT_NAME) { ${Env:AZP_AGENT_NAME} } else { ${Env:computername} })" `
+    --agent "$(if (Test-Path Env:AZP_AGENT_NAME) { ${Env:AZP_AGENT_NAME} } else { [System.Net.Dns]::GetHostName() })" `
     --url "$(${Env:AZP_URL})" `
     --auth PAT `
     --token "$(Get-Content ${Env:AZP_TOKEN_FILE})" `
@@ -42,31 +42,9 @@ try
     --work "$(if (Test-Path Env:AZP_WORK) { ${Env:AZP_WORK} } else { '_work' })" `
     --replace
 
-  # remove the administrative token before accepting work
-  Remove-Item $Env:AZP_TOKEN_FILE
-
   Write-Host "Running Azure Pipelines agent..." -ForegroundColor Cyan
 
-  # optionally copy in NST files for BC release pipelines with ALOps
-  if (Test-Path Env:BC_RELEASE_PIPELINE) {
-    Write-Host "Trying to find NST files"
-    $types = Get-Item C:\bcartifacts.cache\* | Where-Object { $_.Name -eq "onprem" -or $_.Name -eq "sandbox" } | Sort-Object Name
-    if ($types.Count -lt 1) {
-      Write-Host "Couldn't identify BC artifact type"
-    } else {
-      $versions = Get-Item "C:\bcartifacts.cache\$($types[0].Name)\*" | Sort-Object Name -Descending
-      if ($versions.Count -lt 1) {
-        Write-Host "Couldn't identify BC artifact version"
-      } else {
-        $versionWithZero = "$($versions[0].Name.Substring(0, $versions[0].Name.IndexOf(".")))0"
-        New-Item -Path $env:ProgramFiles -Name "Microsoft Dynamics NAV" -Type Directory
-        New-Item -Path (Join-Path $env:ProgramFiles "Microsoft Dynamics NAV") -Name $versionWithZero -Type Directory
-        Copy-Item -Path "C:\bcartifacts.cache\$($types[0].Name)\$($versions[0].Name)\platform\ServiceTier\program files\Microsoft Dynamics NAV\*\Service" -Destination (Join-Path $env:ProgramFiles "Microsoft Dynamics NAV\$versionWithZero") -Recurse
-      }
-    }
-  }
-
-  .\run.cmd
+  .\run.cmd --once
 }
 finally
 {

@@ -24,7 +24,8 @@ RUN iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.or
     [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; `
     Install-PackageProvider -Name 'Nuget' -Force; `
     Install-Module AzureDevOpsAPIUtils -Force -ErrorAction SilentlyContinue; `
-    Install-Module Az.ApplicationInsights -Force -ErrorAction SilentlyContinue; 
+    Install-Module Az.ApplicationInsights -Force -ErrorAction SilentlyContinue; `
+    Install-Module Az.Storage -Force -ErrorAction SilentlyContinue; 
 
 COPY start.ps1 .
 CMD ["powershell", "-Command", "./start.ps1"]
