@@ -25,7 +25,8 @@ RUN iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.or
     Install-PackageProvider -Name 'Nuget' -Force; `
     Install-Module AzureDevOpsAPIUtils -Force -ErrorAction SilentlyContinue; `
     Install-Module Az.ApplicationInsights -Force -ErrorAction SilentlyContinue; `
-    Install-Module Az.Storage -Force -ErrorAction SilentlyContinue; 
+    Install-Module Az.Storage -Force -ErrorAction SilentlyContinue; `
+    Install-Module BCContainerHelper -RequiredVersion 6.0.6 -Force -ErrorAction SilentlyContinue;
 
 COPY start.ps1 .
 CMD ["powershell", "-Command", "./start.ps1"]
