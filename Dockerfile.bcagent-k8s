@@ -1,6 +1,6 @@
 # escape=`
 ARG BASE
-FROM mcr.microsoft.com/dotnet/framework/runtime:4.8-windowsservercore-$BASE
+FROM mcr.microsoft.com/powershell:windowsserver-ltsc2022
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop';"]
 ARG AZP_TOKEN
 ARG AZP_URL
@@ -20,13 +20,14 @@ RUN New-Item \"\azp\agent\" -ItemType directory | Out-Null; `
 
 
 RUN iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1')); `
-    choco install -y 7zip.install; `
+    choco install -y 7zip.install azure-cli nodejs-lts chromium; `
     [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; `
     Install-PackageProvider -Name 'Nuget' -Force; `
     Install-Module AzureDevOpsAPIUtils -Force -ErrorAction SilentlyContinue; `
     Install-Module Az.ApplicationInsights -Force -ErrorAction SilentlyContinue; `
     Install-Module Az.Storage -Force -ErrorAction SilentlyContinue; `
-    Install-Module BCContainerHelper -RequiredVersion 6.0.6 -Force -ErrorAction SilentlyContinue;
+    Install-Module BCContainerHelper -RequiredVersion 6.0.6 -Force -ErrorAction SilentlyContinue; `
+    Add-WindowsFeature Server-Media-Foundation
 
 COPY start.ps1 .
 CMD ["powershell", "-Command", "./start.ps1"]
