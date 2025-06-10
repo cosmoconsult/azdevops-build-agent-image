@@ -20,8 +20,8 @@ RUN New-Item \"\azp\agent\" -ItemType directory | Out-Null; `
 
 
 RUN iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1')); `
-    choco install -y docker-cli dotnetcore-sdk dotnet-6.0-sdk jq azure-cli; `
-    choco install -y dotnet-sdk --pre; `
+    choco install -y --no-progress docker-cli dotnetcore-sdk dotnet-6.0-sdk jq azure-cli; `
+    choco install -y --no-progress dotnet-sdk --pre; `
     Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force | Out-Null; `
     Set-PSRepository -Name 'PSGallery' -SourceLocation "https://www.powershellgallery.com/api/v2" -InstallationPolicy Trusted  | Out-Null; `
     Install-Module -Name 7Zip4PowerShell -Force | Out-Null
