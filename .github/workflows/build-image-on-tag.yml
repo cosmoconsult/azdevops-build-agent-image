@@ -23,9 +23,9 @@ jobs:
     - name: Set up commands
       run: |
         $version = ((Invoke-Expression "git describe --abbrev=0 --tags").Substring(1))
-        $images = @("azdevops-build-agent:$($version)-bcagent-k8s","azdevops-build-agent:latest-bcagent-k8s", "azdevops-build-agent:$($version)-coreagent", "azdevops-build-agent:latest-coreagent", "azdevops-build-agent:$($version)-vsceagent", "azdevops-build-agent:latest-vsceagent")
+        $images = @("azdevops-build-agent:$($version)-bcagent-k8s-core","azdevops-build-agent:latest-bcagent-k8s-core", "azdevops-build-agent:$($version)-bcagent-k8s","azdevops-build-agent:latest-bcagent-k8s", "azdevops-build-agent:$($version)-coreagent", "azdevops-build-agent:latest-coreagent", "azdevops-build-agent:$($version)-vsceagent", "azdevops-build-agent:latest-vsceagent")
         $targets = @("ltsc2022")
-        $dockerfiles = @("Dockerfile.bcagent-k8s", "Dockerfile.bcagent-k8s", "Dockerfile.coreagent", "Dockerfile.coreagent", "Dockerfile.vsceagent", "Dockerfile.vsceagent")
+        $dockerfiles = @("Dockerfile.bcagent-k8s-core", "Dockerfile.bcagent-k8s-core", "Dockerfile.bcagent-k8s", "Dockerfile.bcagent-k8s", "Dockerfile.coreagent", "Dockerfile.coreagent", "Dockerfile.vsceagent", "Dockerfile.vsceagent")
 
         $buildCmds = New-Object System.Collections.Generic.List[System.String]
         $imgPushCmds = New-Object System.Collections.Generic.List[System.String]
